@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+@theme {
+  --font-inter: 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif';
+  --font-poppins: 'Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif';
+  --color-brand-start: #6A5AF9;
+  --color-brand-end: #5CE1E6;
+  --shadow-glow: 0 0 20px rgba(108,99,255,0.35);
+  --backdrop-blur-30: 30px;
+  --radius-xl2: 20px;
+}
+
+@layer base {
+  body { 
+    @apply bg-gray-900 text-white font-inter min-h-screen; 
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-gray-800/50 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-glow;
+  }
+  .neon-btn {
+    @apply bg-gradient-to-r from-brand-start to-brand-end text-white hover:opacity-90 transition-opacity; 
+  }
+  .btn-elevated {
+    @apply transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-start/30 active:translate-y-0 active:scale-95;
+  }
+}
+
+@layer utilities {
+  /* Neon breathing glow */
+  @keyframes neon-pulse {
+    0%, 100% { box-shadow: 0 0 16px rgba(90, 77, 255, 0.4); opacity: 0.9; }
+    50% { box-shadow: 0 0 28px rgba(92, 225, 230, 0.7); opacity: 1; }
+  }
+  .neon-pulse {
+    animation: neon-pulse 3s ease-in-out infinite;
+  }
+
+  /* Soft heartbeat scale (used for timer) */
+  @keyframes heartbeat {
+    0%   { transform: scale(1); }
+    20%  { transform: scale(1.08); }
+    40%  { transform: scale(1); }
+    100% { transform: scale(1); }
+  }
+  .timer-pulse {
+    animation: heartbeat 1s ease-out infinite;
+    transform-origin: center;
+  }
+
+  /* Blinking online dot */
+  @keyframes online-blink {
+    0%, 100% { opacity: 0.35; }
+    50%      { opacity: 1; }
+  }
+  .online-dot {
+    animation: online-blink 1.2s ease-in-out infinite;
+  }
+
+  /* Floating background particles */
+  @keyframes float-up {
+    0%   { transform: translateY(0) translateX(0); opacity: 0; }
+    20%  { opacity: 0.25; }
+    80%  { opacity: 0.25; }
+    100% { transform: translateY(-80px) translateX(20px); opacity: 0; }
+  }
+  .particle-dot {
+    animation: float-up 12s linear infinite;
+  }
+
+  /* Card hover elevation */
+  .card-hover {
+    @apply transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-start/25;
+  }
+
+  /* Button ripple effect */
+  @keyframes ripple {
+    0% {
+      transform: scale(0);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+  .btn-ripple {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-ripple::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .btn-ripple:active::after {
+    animation: ripple 0.6s ease-out;
+  }
+
+  /* Animated gradient background */
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  .bg-gradient-animated {
+    background: linear-gradient(-45deg, rgba(106, 90, 249, 0.1), rgba(92, 225, 230, 0.1), rgba(106, 90, 249, 0.1));
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  /* Floating sparkles */
+  @keyframes sparkle {
+    0%, 100% { opacity: 0; transform: translateY(0) scale(0); }
+    10% { opacity: 1; transform: translateY(-10px) scale(1); }
+    90% { opacity: 1; transform: translateY(-100px) scale(1); }
+    100% { opacity: 0; transform: translateY(-120px) scale(0); }
+  }
+  .sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(92, 225, 230, 0.6);
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(92, 225, 230, 0.8);
+    animation: sparkle 4s ease-in-out infinite;
+  }
+}
